@@ -1,0 +1,140 @@
+package test.code;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Arrays; 
+/**
+ *
+ * @author jjjbr
+ */
+public class TestCode {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+          try
+      {
+        String coupleNames = coupleNames();  
+        int numGuests = numGuests(); 
+        double sqrFootage = sqrFootage(); 
+        ArrayList<String> playlist = new ArrayList<String>(); 
+        playlist(playlist); 
+        int guestsPerFoot = guestsPerFoot(numGuests, sqrFootage); 
+
+        String file = writeFile(coupleNames, numGuests, sqrFootage, playlist, guestsPerFoot); 
+        readFile(file);
+      }
+      catch (Exception e)
+      {
+        String errorMsg = e.getMessage(); 
+        System.out.println(errorMsg);
+      }
+}
+
+    public static String coupleNames ()
+    {
+        Scanner scnr = new Scanner (System.in); 
+        System.out.println("Please enter the name of the bride and groom: ");
+        String coupleNames = scnr.nextLine(); 
+        return coupleNames; 
+    }
+    public static int numGuests ()
+    {
+        Scanner scnr = new Scanner (System.in); 
+        System.out.println("Please enter the number of guests at the wedding: ");
+        int numGuests = scnr.nextInt(); 
+        return numGuests; 
+    }
+    public static double sqrFootage ()
+    {
+        Scanner scnr = new Scanner (System.in); 
+        System.out.println("Please enter the square footage of the venue: ");
+        double sqrFootage = scnr.nextDouble(); 
+        return sqrFootage; 
+    }
+    public static ArrayList<String> playlist (ArrayList<String> playlist)
+    {
+        Scanner scnr = new Scanner (System.in); 
+        System.out.println("Please enter the songs for the DJ, type 'null' to quit: ");
+        boolean flag = true; 
+        String song = ""; 
+        while (flag)
+        {
+            song = scnr.nextLine(); 
+            
+            if (song.equals("null"))
+            {
+                flag = false; 
+            }
+            else
+            {
+                playlist.add(song);
+                flag = true; 
+            }
+        }
+        return playlist; 
+    }
+    public static int guestsPerFoot (int guests, double sqrFootage)
+    {
+        int guestsPerFoot = (int) sqrFootage/guests; 
+        System.out.println("The number of guests per square foot is: " + guestsPerFoot);
+        return guestsPerFoot; 
+    }
+
+    public static String writeFile (String coupleNames, int numGuests, double sqrFootage, ArrayList<String>playlist, int guestsPerFoot)
+    {
+        String fileName = "wedding.txt"; 
+        PrintWriter out = null; 
+        try 
+        {
+            out = new PrintWriter(fileName); 
+            out.println(coupleNames); 
+            out.println(numGuests); 
+            out.println(sqrFootage);
+            for (int i = 0; i< playlist.size(); i++)
+            {
+                out.println(playlist.get(i));
+            }
+            out.println(guestsPerFoot); 
+        }
+        catch (Exception e)
+        {
+            String errorString = e.getMessage(); 
+            System.out.println(errorString);
+        }
+        finally
+        {
+            if (out != null);
+            {
+                out.close(); 
+            }
+        }
+        return fileName; 
+    }
+
+    public static void readFile (String fileName)
+    {
+        Scanner scnr = null; 
+        File fileToRead = new File (fileName); 
+        try
+        {
+            scnr = new Scanner (fileToRead); 
+        }
+        catch (FileNotFoundException fne)
+        {
+            System.out.println(fne.getMessage());
+        }
+        finally
+        {
+            if (scnr != null); 
+            {
+                scnr.close(); 
+            }
+        }
+    }
+}
+
