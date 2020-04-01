@@ -1,0 +1,31 @@
+/**
+ * Main
+ */
+
+import java.util.HashSet;
+
+//import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+
+public class Main {
+
+    public static void main(String[] args) {
+        
+        BookStore b1 = new BookStore("RJ Julia"); 
+
+        b1.addBook("The Road", 5); 
+        b1.addBook("Catcher in the Rye", 10); 
+        b1.addBook("Moby Dick", 3); 
+
+        b1.addCustomer(1, "Bob", "Smith", 20); 
+        b1.addCustomer(2, "Jane", "Doe", 45);
+        
+        b1.addRental(1, "The Road"); 
+        b1.addRental(1, "Catcher in the Rye"); 
+
+        b1.showAll();
+
+    }
+}
